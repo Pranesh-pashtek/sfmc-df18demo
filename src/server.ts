@@ -1,15 +1,15 @@
 /*
  * Main entry point: Start Express App
  */
-
+import env = require('dotenv');
 import * as errorHandler from "errorhandler";
 import * as http from 'http';
 import * as https from 'https';
 import fs = require('fs');
 import { AddressInfo } from "net";
-
 const app = require("./app");
 
+const RUNNING_IN_HEROKU = true
 // Error Handler. Provides full stack - remove for production
 app.use(errorHandler());
 
@@ -23,7 +23,7 @@ var httpsOptions = {
   rejectUnauthorized: false
 };
 
-if(process.env.RUNNING_IN_HEROKU)
+if(RUNNING_IN_HEROKU)
 {
   // Start 'http' server because SSL termination occurs at Heroku's load balancers
   // See: https://stackoverflow.com/questions/25148507/https-ssl-on-heroku-node-express

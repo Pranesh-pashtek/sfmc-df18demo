@@ -42,7 +42,7 @@ export default class SfmcAppDemoRoutes
         {
             // Decode JWT
             let encodedJWT = JSON.stringify(req.body.jwt);
-            let jwtSecret = process.env.DF18DEMO_JWTSECRET;
+            let jwtSecret = "buPkNIXn2JrYFtCBcDi7elb1tw1D3EfuLh_Is-BfHHwTa3_DSjmEYoVpE0M0FN5fYAeeyY3zqDOg70_SfO4zVl7z457wLh3XiPMAcPE0HV_oWio-d8YkmEM3yUSGQcrvc5pMR7JpCz8K8boj4MkZKuj60j5FOfig5d5bScry_RF9tF42Mnqcp80QqnhzKH4Ma9z7o4mILfU4ovqfwLlhBnp0BNRZXX2hWVfx9D8aIUPtH2j5R4p7YD4jfSE22Q2";
             Utils.logInfo("Decoding JWT with secret from DF18DEMO_JWTSECRET = " + jwtSecret);
             req.session.decodedJWT = jwt.decode(encodedJWT, jwtSecret, true); // pass 'noVerify = true' for this demo
             
@@ -97,9 +97,9 @@ export default class SfmcAppDemoRoutes
     {
         let self = this;
         let sessionId = req.session.id;
-        let clientId = process.env.DF18DEMO_CLIENTID;
-        let clientSecret = process.env.DF18DEMO_CLIENTSECRET;
-
+        let clientId = "w687o5zzf0vc6m8csgmzeyo3";
+        let clientSecret = "SAEwgNNnZhRCO3uraqZKaoPQ";
+        let grant_type = "client_credentials"
         req.session.oauthAccessToken = "";
         req.session.oauthAccessTokenExpiry = "";
 
@@ -111,7 +111,7 @@ export default class SfmcAppDemoRoutes
             {
                 Utils.logInfo("Getting OAuth Access Token with ClientID and ClientSecret from in environment variables and refreshToken: " + req.session.refreshTokenFromJWT);
     
-                self._apiHelper.getOAuthAccessTokenFromRefreshToken(clientId, clientSecret, req.session.refreshTokenFromJWT)
+                self._apiHelper.getOAuthAccessTokenFromRefreshToken(clientId, clientSecret, req.session.refreshTokenFromJWT,req)
                 .then((result) => {
                     req.session.oauthAccessToken = result.oauthAccessToken;
                     req.session.oauthAccessTokenExpiry = result.oauthAccessTokenExpiry;
